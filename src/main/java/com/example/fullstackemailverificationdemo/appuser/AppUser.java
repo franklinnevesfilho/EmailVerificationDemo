@@ -24,13 +24,13 @@ public class AppUser implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private String username;
+    private String firstName;
+    private String lastName;
     private String email;
     private String password;
     private AppUserRole role;
-    private boolean isLocked;
-    private Boolean isEnabled;
+    private boolean isLocked = false;
+    private Boolean isEnabled = false;
 
     public AppUser(String name,
                    String username,
@@ -39,13 +39,21 @@ public class AppUser implements UserDetails {
                    AppUserRole role,
                    boolean isLocked,
                    Boolean isEnabled) {
-        this.name = name;
-        this.username = username;
+        this.firstName = name;
+        this.lastName = username;
         this.email = email;
         this.password = password;
         this.role = role;
         this.isLocked = isLocked;
         this.isEnabled = isEnabled;
+    }
+
+    public AppUser(String firstName, String lastName, String email, String password, AppUserRole role) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.role = role;
     }
 
     @Override
@@ -61,7 +69,7 @@ public class AppUser implements UserDetails {
 
     @Override
     public String getUsername() {
-        return username;
+        return email;
     }
 
     @Override
